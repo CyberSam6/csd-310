@@ -1,36 +1,61 @@
 import mysql.connector
+from mysql.connector import errorcode
 
-# connect to the MySQL database
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="QwEr#45%",
-    database="pysports"
-)
+""" database config object """
+config = {
+    "user": "pysports_user",
+    "password": "MySQL8IsGreat!",
+    "host": "127.0.0.1",
+    "database": "pysports",
+    "raise_on_warnings": True
+}
 
-# create a cursor
-cursor = db.cursor()
+try:
+    """ try/catch block for handling potential MySQL database errors """ 
 
-# select query for the team table
-team_query = "SELECT team_id, team_name, mascot FROM team"
-cursor.execute(team_query)
-teams = cursor.fetchall()
+    db = mysql.connector.connect(**config) # connect to the pysports database 
 
-# iterate over the cursor and display the results
-print("Teams:")
-for team in teams:
-    print("Team ID: {}\nTeam Name: {}\nMascot: {}\n".format(team[0], team[1], team[2]))
+    cursor = db.cursor()
 
-# select query for the player table
-player_query = "SELECT player_id, first_name, last_name, team_id FROM player"
-cursor.execute(player_query)
-players = cursor.fetchall()
+    # select query from the team table 
+    cursor.execute("SELECT team_id, team_name, mascot FROM team")
 
-# iterate over the cursor and display the results
-print("Players:")
-for player in players:
-    print("Player ID: {}\nFirst Name: {}\nLast Name: {}\nTeam ID: {}\n".format(player[0], player[1], player[2], player[3]))
+    # get the results from the cursor object 
+    teams = cursor.fetchall()
 
-# close the cursor and database connection
-cursor.close()
-db.close()
+    print("\n  -- DISPLAYING TEAM RECORDS --")
+    
+    # iterate over the teams data set and display the results 
+    for team in teams: 
+        print("  Team ID: {}\n  Team Name: {}\n  Mascot: {}\n".format(team[0], team[1], team[2]))
+
+    # select query for the player table 
+    cursor.execute("SELECT player_id, first_name, last_name, team_id FROM player")
+
+    # get the results from the cursor object 
+    players = cursor.fetchall()
+
+    print ("\n  -- DISPLAYING PLAYER RECORDS --")
+
+    # iterate over the players data set and display the results
+    for player in players:
+        print("  Player ID: {}\n  First Name: {}\n  Last Name: {}\n  Team ID: {}\n".format(player[0], player[1], player[2], player[3]))
+
+    input("\n\n  Press any key to continue... ")
+
+except mysql.connector.Error as err:
+    """ handle errors """
+
+    if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+        print("  The supplied username or password are invalid")
+
+    elif err.errno == errorcode.ER_BAD_DB_ERROR:
+        print("  The specified database does not exist")
+
+    else:
+        print(err)
+
+finally:
+    """ close the connection to MySQL """
+    
+    db.close()
