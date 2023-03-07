@@ -12,10 +12,10 @@ DB_CONFIG = {
 
 def show_menu():
     print("\n  -- Main Menu --")
-    print("    1. View Books")
-    print("    2. View Store Locations")
-    print("    3. My Account")
-    print("    4. Exit Program")
+    print("1. View Books")
+    print("2. View Store Locations")
+    print("3. My Account")
+    print("4. Exit Program")
 
     try:
         choice = int(input('      <Example enter: 1 for book listing>: '))
@@ -31,7 +31,7 @@ def show_books(cursor):
 
     print("\n  -- DISPLAYING BOOK LISTING --")
     for book in books:
-        print("  Book Name: {}\n  Author: {}\n  Details: {}\n".format(book[1], book[2], book[3]))
+        print("Book Name: {}\n  Author: {}\n  Details: {}\n".format(book[1], book[2], book[3]))
 
 def show_locations(cursor):
     """Display all store locations"""
@@ -40,7 +40,7 @@ def show_locations(cursor):
 
     print("\n  -- DISPLAYING STORE LOCATIONS --")
     for location in locations:
-        print("  Locale: {}\n".format(location[0]))
+        print("Locale: {}\n".format(location[0]))
 
 def validate_user():
     """Validate the user's ID"""
@@ -57,12 +57,12 @@ def validate_user():
 def show_account_menu():
     """Display the user's account menu"""
     print("\n      -- Customer Menu --")
-    print("        1. Wishlist")
-    print("        2. Add Book")
-    print("        3. Main Menu")
+    print("1. Wishlist")
+    print("2. Add Book")
+    print("3. Main Menu")
 
     try:
-        account_option = int(input('        <Example enter: 1 for wishlist>: '))
+        account_option = int(input('<Example enter: 1 for wishlist>: '))
         return account_option
     except ValueError:
         print("\n  Invalid number, program terminated...\n")
@@ -82,7 +82,7 @@ def show_wishlist(cursor, user_id):
 
     print("\n        -- DISPLAYING WISHLIST ITEMS --")
     for book in wishlist:
-        print("        Book Name: {}\n        Author: {}\n".format(book[2], book[3]))
+        print("Book Name: {}\n     Author: {}\n".format(book[2], book[3]))
 
 def show_books_to_add(cursor, user_id):
     """Display the books that are not in the user's wishlist"""
