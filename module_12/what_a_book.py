@@ -18,10 +18,10 @@ def show_menu():
     print("4. Exit Program")
 
     try:
-        choice = int(input('      <Example enter: 1 for book listing>: '))
+        choice = int(input('<Example enter: 1 for book listing>: '))
         return choice
     except ValueError:
-        print("\n  Invalid number, program terminated...\n")
+        print("\n Invalid number, program terminated...\n")
         sys.exit(0)
 
 def show_books(cursor):
@@ -29,7 +29,7 @@ def show_books(cursor):
     cursor.execute("SELECT book_id, book_name, author, details from book")
     books = cursor.fetchall()
 
-    print("\n  -- DISPLAYING BOOK LISTING --")
+    print("\n -- DISPLAYING BOOK LISTING --")
     for book in books:
         print("Book Name: {}\n  Author: {}\n  Details: {}\n".format(book[1], book[2], book[3]))
 
@@ -38,25 +38,25 @@ def show_locations(cursor):
     cursor.execute("SELECT locale from store")
     locations = cursor.fetchall()
 
-    print("\n  -- DISPLAYING STORE LOCATIONS --")
+    print("\n -- DISPLAYING STORE LOCATIONS --")
     for location in locations:
         print("Locale: {}\n".format(location[0]))
 
 def validate_user():
     """Validate the user's ID"""
     try:
-        user_id = int(input('\n      Enter a customer id <Example 1 for user_id 1>: '))
+        user_id = int(input('\n Enter a customer id <Example 1 for user_id 1>: '))
         if user_id < 0 or user_id > 3:
             print("\n  Invalid customer number, program terminated...\n")
             sys.exit(0)
         return user_id
     except ValueError:
-        print("\n  Invalid number, program terminated...\n")
+        print("\n Invalid number, program terminated...\n")
         sys.exit(0)
 
 def show_account_menu():
     """Display the user's account menu"""
-    print("\n      -- Customer Menu --")
+    print("\n  -- Customer Menu --")
     print("1. Wishlist")
     print("2. Add Book")
     print("3. Main Menu")
@@ -80,7 +80,7 @@ def show_wishlist(cursor, user_id):
     cursor.execute(query, (user_id,))
     wishlist = cursor.fetchall()
 
-    print("\n        -- DISPLAYING WISHLIST ITEMS --")
+    print("\n -- DISPLAYING WISHLIST ITEMS --")
     for book in wishlist:
         print("Book Name: {}\n     Author: {}\n".format(book[2], book[3]))
 
